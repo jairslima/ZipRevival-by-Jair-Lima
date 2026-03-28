@@ -1,12 +1,13 @@
 package archiver
 
 import (
-	"archive/zip"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/yeka/zip"
 )
 
 // UnzipOptions define as opções de extração baseadas nas flags clássicas.
@@ -14,6 +15,7 @@ type UnzipOptions struct {
 	DestDir   string
 	ListOnly  bool
 	Overwrite int // 0 = prompt, 1 = always (-o), 2 = never (-n)
+	Password  string
 }
 
 // UnzipFile extrai ou lista o conteúdo de um arquivo ZIP.

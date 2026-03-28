@@ -1,11 +1,12 @@
 package archiver
 
 import (
-	"archive/zip"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+
+	"github.com/yeka/zip"
 )
 
 // ZipOptions define as opções de compactação similares às flags originais.
@@ -13,6 +14,7 @@ type ZipOptions struct {
 	Recursive        bool
 	Move             bool
 	CompressionLevel int // 0 para Store, >0 para Deflate
+	Password         string
 }
 
 // ZipFiles compacta uma lista de arquivos ou diretórios em um arquivo de destino.
