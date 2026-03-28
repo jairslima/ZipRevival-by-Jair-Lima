@@ -15,6 +15,7 @@ func main() {
 		comp0     bool
 		comp1     bool
 		comp9     bool
+		password  string
 	)
 
 	flag.BoolVar(&recursive, "r", false, "Recurse into directories")
@@ -22,6 +23,7 @@ func main() {
 	flag.BoolVar(&comp0, "0", false, "Store only")
 	flag.BoolVar(&comp1, "1", false, "Compress faster")
 	flag.BoolVar(&comp9, "9", false, "Compress better")
+	flag.StringVar(&password, "P", "", "Password to encrypt")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Copyright (c) 2026 Zip Revival by Jair Lima\n")
@@ -69,9 +71,6 @@ func main() {
 	err := archiver.ZipFiles(dest, files, opts)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "zip error: %v\n", err)
-		os.Exit(1)
-	}
-}err, "zip error: %v\n", err)
 		os.Exit(1)
 	}
 }

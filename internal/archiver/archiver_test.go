@@ -17,8 +17,6 @@ func TestZipUnzip(t *testing.T) {
 		t.Fatalf("Failed to create test file: %v", err)
 	}
 
-	zipDest := filepath.Join(tempDir, "test.zip")
-
 	// Test Zip with Password
 	opts := ZipOptions{
 		Recursive:        false,
