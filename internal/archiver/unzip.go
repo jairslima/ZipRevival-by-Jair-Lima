@@ -32,7 +32,7 @@ func UnzipFile(src string, opts *UnzipOptions) error {
 		fmt.Println("---------  ---------- -----   ----")
 		var totalSize uint64
 		for _, f := range r.File {
-			fmt.Printf("%9d  %s   %s\n", f.UncompressedSize64, f.Modified.Format("2006-02-01 15:04"), f.Name)
+			fmt.Printf("%9d  %s   %s\n", f.UncompressedSize64, f.ModTime().Format("2006-02-01 15:04"), f.Name)
 			totalSize += f.UncompressedSize64
 		}
 		fmt.Println("---------                     -------")
