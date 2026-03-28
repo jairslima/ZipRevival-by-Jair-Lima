@@ -141,6 +141,7 @@ func addFileToZip(zipWriter *zip.Writer, filePath string, opts ZipOptions) error
 
 	if opts.Password != "" {
 		header.SetPassword(opts.Password)
+		header.SetEncryptionMethod(zip.StandardEncryption)
 	}
 
 	writer, err := zipWriter.CreateHeader(header)
