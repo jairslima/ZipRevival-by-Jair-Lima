@@ -4,8 +4,8 @@
 
 **Stack Tecnológico:**
 - Linguagem: Go (Golang)
-- Arquitetura: Binários separados (`zip.exe`, `unzip.exe`, `unrar.exe`, `pkzip.exe`, `pkunzip.exe`) para fácil substituição via `PATH`.
-- Bibliotecas: `github.com/yeka/zip` para suporte a senhas/criptografia e operações de compressão de alta performance; `github.com/mholt/archiver/v3` e `nwaples/rardecode` para extração de arquivos RAR. O suporte ao ARJ não foi implementado devido à falta de bibliotecas modernas.
+- Arquitetura: Binários separados (`zip.exe`, `unzip.exe`, `unrar.exe`, `pkzip.exe`, `pkunzip.exe`, `untar.exe`, `unlha.exe`, `uniso.exe`, `uncab.exe`, `un7z.exe`) para fácil substituição via `PATH`.
+- Bibliotecas: `github.com/yeka/zip` para suporte a senhas/criptografia; `github.com/mholt/archiver/v3` e `nwaples/rardecode` para RAR/TAR; `github.com/koron-go/lha` para LHA; `github.com/kdomanski/iso9660` para ISO; `github.com/bogdannbv/go-cabfile` para CAB e `github.com/bodgit/sevenzip` para 7Z. O suporte ao ARJ não foi implementado devido à falta de bibliotecas modernas.
 
 **Estrutura de Diretórios:**
 - `/cmd/zip`: Ponto de entrada para o binário do `zip`. Responsável pelo parsing da linha de comando.
