@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"os"
+	"path/filepath"
 
-	"github.com/mholt/archiver/v3"
+	"github.com/bodgit/sevenzip"
 )
 
 func main() {
@@ -28,12 +30,42 @@ func main() {
 		destDir = args[1]
 	}
 
-	z := archiver.NewSevenZip()
-	err := z.Unarchive(src, destDir)
+	r, err := sevenzip.OpenReader(src)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "un7z error: %v\n", err)
 		os.Exit(1)
 	}
+	defer r.Close()
 
+	for _, f := range r.File {
+		path := filepath.Join(destDir, f.Name)
+		if f.FileInfo().IsDir() {
+			os.MkdirAll(path, os.ModePerm)
+			continue
+		}
+		os.MkdirAll(filepath.Dir(path), os.ModePerm)
+
+		rc, err := f.Open()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "un7z open error: %v\n", err)
+			continue
+		}
+
+		out, err := os.Create(path)
+		if err != nil {
+			rc.Close()
+			continue
+		}
+
+		_, err = io.Copy(out, rc)
+		out.Close()
+		rc.Close()
+		
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "un7z copy error: %v\n", err)
+		} else {
+			fmt.Printf("  Extracting: %s\n", f.Name)
+		}
+	}
 	fmt.Println("Extracted", src, "successfully.")
 }

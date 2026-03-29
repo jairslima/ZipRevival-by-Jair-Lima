@@ -50,7 +50,7 @@ func main() {
 
 		path := filepath.Join(destDir, hdr.Name)
 		
-		if hdr.IsDir {
+		if hdr.Method == "-lhd-" || len(hdr.Name) > 0 && hdr.Name[len(hdr.Name)-1] == '/' {
 			os.MkdirAll(path, 0755)
 			continue
 		}
@@ -63,7 +63,7 @@ func main() {
 			continue
 		}
 		
-		_, err = io.Copy(out, r)
+		err = r.Decode(out)
 		out.Close()
 		
 		if err != nil {
