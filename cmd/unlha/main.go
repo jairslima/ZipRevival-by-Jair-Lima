@@ -63,7 +63,7 @@ func main() {
 			continue
 		}
 		
-		err = r.Decode(out)
+		_, err = r.Decode(out)
 		out.Close()
 		
 		if err != nil {
