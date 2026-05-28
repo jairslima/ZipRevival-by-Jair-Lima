@@ -1,0 +1,29 @@
+# Ambiente e segredos
+.env
+.env.*
+*.key
+secrets.*
+*.pkl
+*.pem
+credentials.*
+*.p12
+*.pfx
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
