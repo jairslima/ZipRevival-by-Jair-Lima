@@ -1,32 +1,46 @@
 # Zip Revival by Jair Lima
 
-Uma suíte completa de utilitários de linha de comando desenvolvida em Go, focada na clonagem e aprimoramento de ferramentas clássicas de arquivamento (como zip, unzip, ar, 	ar, lha, etc.), garantindo extrema velocidade, compatibilidade de sintaxe para preservar a memória muscular, e independência (binários nativos autônomos sem necessidade de instaladores complexos).
+Uma suÃ­te completa de utilitÃ¡rios de linha de comando desenvolvida em Go, focada na clonagem e aprimoramento de ferramentas clÃ¡ssicas de arquivamento (como zip, unzip, ar, 	ar, lha, etc.), garantindo extrema velocidade, compatibilidade de sintaxe para preservar a memÃ³ria muscular, e independÃªncia (binÃ¡rios nativos autÃ´nomos sem necessidade de instaladores complexos).
 
-## Utilitários Incluídos
+## UtilitÃ¡rios IncluÃ­dos
 
-*   **zip.exe e unzip.exe**: Operações completas de ZIP. Suporta compressão máxima (-9), recursividade (-r), movimentação (-m) e **criptografia por senha (-P)**.
-*   **pkzip.exe e pkunzip.exe**: Wrappers nostálgicos com a sintaxe idêntica à do DOS.
-*   **unrar.exe**: Extração de arquivos proprietários .rar.
-*   **untar.exe**: Extração de arquivos de fita Unix (.tar, .tar.gz, .tar.bz2, .xz).
-*   **un7z.exe**: Extração autônoma do moderno e eficiente formato .7z.
-*   **unlha.exe**: Extração de arquivos clássicos japoneses .lzh e .lha (método LH5).
-*   **uniso.exe**: Extração direta do conteúdo de imagens de CD/DVD .iso (ISO 9660).
-*   **uncab.exe**: Extração de contêineres de drivers e instaladores Windows .cab (Cabinet).
+*   **zip.exe e unzip.exe**: OperaÃ§Ãµes completas de ZIP. Suporta compressÃ£o mÃ¡xima (-9), recursividade (-r), movimentaÃ§Ã£o (-m) e **criptografia por senha (-P)**.
+*   **pkzip.exe e pkunzip.exe**: Wrappers nostÃ¡lgicos com a sintaxe idÃªntica Ã  do DOS.
+*   **unrar.exe**: ExtraÃ§Ã£o de arquivos proprietÃ¡rios .rar.
+*   **untar.exe**: ExtraÃ§Ã£o de arquivos de fita Unix (.tar, .tar.gz, .tar.bz2, .xz).
+*   **un7z.exe**: ExtraÃ§Ã£o autÃ´noma do moderno e eficiente formato .7z.
+*   **unlha.exe**: ExtraÃ§Ã£o de arquivos clÃ¡ssicos japoneses .lzh e .lha (mÃ©todo LH5).
+*   **uniso.exe**: ExtraÃ§Ã£o direta do conteÃºdo de imagens de CD/DVD .iso (ISO 9660).
+*   **uncab.exe**: ExtraÃ§Ã£o de contÃªineres de drivers e instaladores Windows .cab (Cabinet).
 
-## Instalação
+## Compilar
 
-Copie os executáveis (.exe) gerados para qualquer diretório listado na variável de ambiente PATH do seu sistema operacional. No desenvolvimento original, eles foram alocados em $env:USERPROFILE\ZipRevivalBin.
+Requer [Go](https://go.dev/dl/) instalado.
 
-## Notas de Desenvolvimento (Para IAs Futuras)
-Este repositório foi construído seguindo diretrizes estritas do arquivo GEMINI.md.
+```bash
+go build -o zip.exe ./cmd/zip
+go build -o unzip.exe ./cmd/unzip
+# o mesmo para: pkzip, pkunzip, unrar, untar, un7z, unlha, uniso, uncab
+```
 
-*   **Bibliotecas Recomendadas**:
-    *   ZIP (c/ Senhas): github.com/yeka/zip
-    *   TAR/RAR/7Z (Multi-formato): github.com/mholt/archiver/v3
-    *   LHA/LZH: github.com/koron-go/lha
-    *   ISO: github.com/kdomanski/iso9660
-    *   CAB: github.com/bogdannbv/go-cabfile
-*   **Limitações**: O formato ARJ foi intencionalmente excluído do projeto devido à ausência de bibliotecas estáveis e ativas em Go moderno, garantindo a robustez do restante da suíte.
-*   **Privacidade**: O versionamento foi feito num repositório estritamente Privado, conforme preferência global do usuário.
+Para compilar tudo de uma vez no PowerShell:
 
-Desenvolvido para **Jair Lima**.
+```powershell
+Get-ChildItem cmd -Directory | ForEach-Object { go build -o "$($_.Name).exe" "./cmd/$($_.Name)" }
+```
+
+Copie os `.exe` gerados para uma pasta do `PATH`. Os binÃ¡rios nÃ£o ficam no repositÃ³rio.
+
+## Bibliotecas
+
+- ZIP com senha: `github.com/yeka/zip`
+- TAR, RAR e 7z: `github.com/mholt/archiver/v3` e `github.com/bodgit/sevenzip`
+- LHA/LZH: `github.com/koron-go/lha`
+- ISO 9660: `github.com/kdomanski/iso9660`
+- CAB: `github.com/bogdannbv/go-cabfile`
+
+O formato ARJ ficou de fora por falta de bibliotecas estÃ¡veis em Go.
+
+## LicenÃ§a
+
+MIT, veja `LICENSE`. Cada biblioteca acima mantÃ©m a sua prÃ³pria licenÃ§a.
