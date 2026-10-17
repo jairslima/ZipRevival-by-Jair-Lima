@@ -6,3 +6,28 @@ test_dir/
 .env.*
 *.key
 *.pem
+# Ambiente e segredos
+secrets.*
+*.pkl
+credentials.*
+*.p12
+*.pfx
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
