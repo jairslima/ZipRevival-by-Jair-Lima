@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/jairlima/zip-revival/internal/archiver"
+	"github.com/jairslima/ZipRevival-by-Jair-Lima/internal/archiver"
 )
 
 func main() {

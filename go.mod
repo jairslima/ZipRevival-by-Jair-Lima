@@ -1,4 +1,4 @@
-module github.com/jairlima/zip-revival
+module github.com/jairslima/ZipRevival-by-Jair-Lima
 
 go 1.26.1
 

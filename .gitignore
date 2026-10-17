@@ -1,0 +1,8 @@
+*.exe
+*.zip
+out_dir/
+test_dir/
+.env
+.env.*
+*.key
+*.pem
