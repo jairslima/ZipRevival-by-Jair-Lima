@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	zipsafe "github.com/jairslima/ZipRevival-by-Jair-Lima/internal/archiver"
 	"io"
 	"os"
 	"path/filepath"
@@ -38,6 +39,7 @@ func main() {
 	defer f.Close()
 
 	r := lha.NewReader(f)
+	ignoradas := 0
 	for {
 		hdr, err := r.NextHeader()
 		if err == io.EOF {
@@ -48,8 +50,13 @@ func main() {
 			os.Exit(1)
 		}
 
-		path := filepath.Join(destDir, hdr.Name)
-		
+		path, err := zipsafe.SafeJoin(destDir, hdr.Name)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "unlha: entrada ignorada (%v)\n", err)
+			ignoradas++
+			continue
+		}
+
 		if hdr.Method == "-lhd-" || len(hdr.Name) > 0 && hdr.Name[len(hdr.Name)-1] == '/' {
 			os.MkdirAll(path, 0755)
 			continue
@@ -62,14 +69,18 @@ func main() {
 			fmt.Fprintf(os.Stderr, "unlha extract error: %v\n", err)
 			continue
 		}
-		
+
 		_, err = r.Decode(out)
 		out.Close()
-		
+
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "unlha copy error: %v\n", err)
 		} else {
 			fmt.Printf("  inflating: %s\n", hdr.Name)
 		}
+	}
+	if ignoradas > 0 {
+		fmt.Fprintf(os.Stderr, "unlha: %d entrada(s) com caminho inseguro foram ignoradas.\n", ignoradas)
+		os.Exit(2)
 	}
 }

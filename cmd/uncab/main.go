@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	zipsafe "github.com/jairslima/ZipRevival-by-Jair-Lima/internal/archiver"
 	"io"
 	"os"
 	"path/filepath"
@@ -44,6 +45,7 @@ func main() {
 	}
 
 	files := cab.FileList()
+	ignoradas := 0
 	for _, fileName := range files {
 		reader, err := cab.Content(fileName)
 		if err != nil {
@@ -51,7 +53,12 @@ func main() {
 			continue
 		}
 
-		path := filepath.Join(destDir, fileName)
+		path, err := zipsafe.SafeJoin(destDir, fileName)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "uncab: entrada ignorada (%v)\n", err)
+			ignoradas++
+			continue
+		}
 		os.MkdirAll(filepath.Dir(path), 0755)
 
 		out, err := os.Create(path)
@@ -68,5 +75,9 @@ func main() {
 		} else {
 			fmt.Printf("  inflating: %s\n", fileName)
 		}
+	}
+	if ignoradas > 0 {
+		fmt.Fprintf(os.Stderr, "uncab: %d entrada(s) com caminho inseguro foram ignoradas.\n", ignoradas)
+		os.Exit(2)
 	}
 }

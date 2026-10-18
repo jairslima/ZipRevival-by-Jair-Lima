@@ -132,7 +132,7 @@ func addFileToZip(zipWriter *zip.Writer, filePath string, opts ZipOptions) error
 	}
 
 	header.Name = filepath.ToSlash(filePath)
-	
+
 	if opts.CompressionLevel == 0 {
 		header.Method = zip.Store
 	} else {

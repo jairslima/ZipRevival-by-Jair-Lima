@@ -44,3 +44,12 @@ O formato ARJ ficou de fora por falta de bibliotecas estáveis em Go.
 ## Licença
 
 MIT, veja `LICENSE`. Cada biblioteca acima mantém a sua própria licença.
+
+## Segurança
+
+Os extratores tratam todo arquivo como não confiável:
+
+- Nomes de entrada com `..`, caminho absoluto, letra de unidade ou byte nulo são **ignorados** (ataque "Zip Slip"); o comando termina com código de saída 2 e avisa quantas entradas foram ignoradas.
+- `untar` e `unrar` **nunca criam links** simbólicos ou físicos.
+- O `unrar` limita o dicionário (512 MiB) e o tamanho de cada arquivo (8 GiB).
+- Para relatar uma falha de segurança, não abra issue pública: fale com o autor pelo perfil do GitHub (github.com/jairslima).

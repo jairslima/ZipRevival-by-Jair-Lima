@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mholt/archiver/v3"
+	zipsafe "github.com/jairslima/ZipRevival-by-Jair-Lima/internal/archiver"
 )
 
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "UNTAR Revival by Jair Lima\n")
-		fmt.Fprintf(os.Stderr, "Usage: untar [options] archive.tar\n")
-		fmt.Fprintf(os.Stderr, "Extracts TAR, TAR.GZ, TAR.BZ2, TAR.XZ, etc.\n")
+		fmt.Fprintf(os.Stderr, "Usage: untar [options] archive.tar [destdir]\n")
+		fmt.Fprintf(os.Stderr, "Extracts TAR, TAR.GZ, TAR.BZ2 and TAR.XZ. Symbolic and hard links are never created.\n")
 	}
 
 	flag.Parse()
@@ -29,10 +29,14 @@ func main() {
 		dest = args[1]
 	}
 
-	err := archiver.Unarchive(src, dest)
+	_, ignoradas, err := zipsafe.ExtractTar(src, dest, os.Stdout)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "untar error: %v\n", err)
 		os.Exit(1)
+	}
+	if ignoradas > 0 {
+		fmt.Fprintf(os.Stderr, "untar: %d entrada(s) foram ignoradas por segurança.\n", ignoradas)
+		os.Exit(2)
 	}
 	fmt.Println("Extracted", src, "successfully.")
 }

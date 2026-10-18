@@ -8,7 +8,7 @@ import (
 
 func TestZipUnzip(t *testing.T) {
 	tempDir := t.TempDir()
-	
+
 	// Create a test file
 	testFileName := "test_hello.txt"
 	testFilePath := filepath.Join(tempDir, testFileName)
@@ -24,7 +24,7 @@ func TestZipUnzip(t *testing.T) {
 		CompressionLevel: 8,
 		Password:         "secret",
 	}
-	
+
 	// Temporarily change working dir to avoid absolute paths in zip
 	originalWD, _ := os.Getwd()
 	os.Chdir(tempDir)
@@ -42,7 +42,7 @@ func TestZipUnzip(t *testing.T) {
 		Overwrite: 1,
 		Password:  "secret",
 	}
-	
+
 	err = UnzipFile("test.zip", &unzipOpts)
 	if err != nil {
 		t.Fatalf("UnzipFile failed: %v", err)
